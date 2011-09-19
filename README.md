@@ -65,8 +65,7 @@ html = '<p>Hi!</p>'
 coffeekup = htmlkup(html)
 ```
 ``` coffeescript
-p->
-  text 'Hi!'
+p "Hi!"
 ```
 
  Tests
