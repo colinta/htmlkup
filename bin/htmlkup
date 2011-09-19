@@ -16,7 +16,7 @@ process.stdin.on 'data', (chunk)->
 
 process.stdin.on 'end', ()->
   try
-    console.log htmlkup(html)
+    process.stdout.write htmlkup(html)
   catch e
     if e.html? then console.log e.html
     if e.coffee? then console.log e.coffee
