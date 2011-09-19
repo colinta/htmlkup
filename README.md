@@ -7,9 +7,9 @@ html()
 ```
 
 ``` shell
-cat '<html>
+echo '<html>
   <head>
-    <link type="text/css" href="/css/my.css">
+    <link type="text/css" href="/css/my.css" />
     <script type="text/javascript" src="/js/my.js"></script>
     <title>Title</title>
   </head>
@@ -20,6 +20,19 @@ cat '<html>
     </div>
   </body>
 </html>' | htmlkup
+html ->
+  head ->
+    link type: "text/css", href: "/css/my.css", ->
+      script type: "text/javascript", src: "/js/my.js", ->
+      title ->
+        text "Title"
+    body ->
+      div ->
+        text "Text"
+      div ->
+        a href: "/", ->
+          text "somewhere"
+        br()
 ```
 
 ``` coffeescript

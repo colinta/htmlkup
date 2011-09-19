@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 
 require 'coffee-script'
-htmlkup = require './lib/htmlkup'
+htmlkup = require '../lib/htmlkup'
 
 process.stdin.resume()
 process.stdin.setEncoding('utf8')
