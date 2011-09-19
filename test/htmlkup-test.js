@@ -72,6 +72,12 @@ vows.describe('Converting html into coffeekup').addBatch({
       assert.equal(htmlkup(html), '  div ->\n    p()')
     },
   },
+  'when converting <div><p> with whitespace before AND after': {
+    topic: '\n    \n  <div><p></p></div>\n  \n    ',
+    'we expect div -> p -> with whitespace': function(html) {
+      assert.equal(htmlkup(html), '\n    \n  div ->\n    p()\n  \n    ')
+    },
+  },
   'when converting <div><p> with tabs': {
     topic: '\t\t<div><p></p></div>',
     'we expect div -> p -> with spaces': function(html) {

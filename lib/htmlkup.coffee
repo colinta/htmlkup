@@ -51,10 +51,14 @@ module.exports = (html, output_debug)->
   last_attr = null
   parent_tags = []
 
-  html = html.replace(/[\t]/g, '  ') # YEAH, FUCK YOU, TABS!
-  initial_indent = (html.match /^[ ]*/)[0]
+  html = html.replace(/\t/g, '  ') # YEAH, FUCK YOU, TABS!
+  initial_whitespace = (html.match /^[ \n\r]*/)[0]
+  initial_indent = initial_whitespace.match(/[ ]*$/)[0]
+  initial_whitespace = initial_whitespace.substring(0, initial_whitespace.length - initial_indent.length)
+  final_whitespace = (html.match /[ \r\n]*$/)[0]
+  console.log {initial_whitespace, initial_indent, final_whitespace} if output_debug
 
-  c = initial_indent.length
+  c = initial_whitespace.length
   while state != 'end'
     current = html.substring c
 
@@ -96,7 +100,7 @@ module.exports = (html, output_debug)->
   while parent_tags.length
     last_tag = parent_tags.pop()
   debug last_tag.tags if output_debug
-  (render last_tag.tags, [initial_indent]).replace(/\n$/, '')
+  initial_whitespace + (render last_tag.tags, [initial_indent]).replace(/\n$/, '') + final_whitespace
 
 
 render = (tags, indent = [])->
