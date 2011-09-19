@@ -1,0 +1,268 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'publish' ]
+info using npm@1.0.27
+info using node@v0.4.11
+verbose /usr/local/bin/node node symlink
+verbose config file /Users/colinta/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose publish [ '.' ]
+silly testEngine { name: 'htmlkup',
+silly testEngine   description: 'Converts html to coffeekup.  Uses state maching written in coffeescript.',
+silly testEngine   version: '1.1.4',
+silly testEngine   author: 
+silly testEngine    { name: 'Colin Thomas-Arnold',
+silly testEngine      email: 'colinta@mac.com' },
+silly testEngine   bin: { htmlkup: './bin/htmlkup' },
+silly testEngine   main: './lib/htmlkup.coffee',
+silly testEngine   directories: { test: './test' },
+silly testEngine   dependencies: { 'coffee-script': '>= 1.1.0' },
+silly testEngine   _npmJsonOpts: 
+silly testEngine    { file: '/Users/colinta/Source/htmlkup/package.json',
+silly testEngine      wscript: false,
+silly testEngine      contributors: false,
+silly testEngine      serverjs: false },
+silly testEngine   _id: 'htmlkup@1.1.4',
+silly testEngine   devDependencies: {},
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.27',
+silly testEngine   _nodeVersion: 'v0.4.11',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   scripts: {} }
+verbose caching /Users/colinta/Source/htmlkup/package.json
+verbose loadDefaults htmlkup@1.1.4
+info prepublish htmlkup@1.1.4
+verbose cache add [ '.', null ]
+silly cache add: name, spec, args [ undefined, '.', [ '.', null ] ]
+verbose parsed url { pathname: '.', href: '.' }
+silly testEngine { name: 'htmlkup',
+silly testEngine   description: 'Converts html to coffeekup.  Uses state maching written in coffeescript.',
+silly testEngine   version: '1.1.4',
+silly testEngine   author: 
+silly testEngine    { name: 'Colin Thomas-Arnold',
+silly testEngine      email: 'colinta@mac.com' },
+silly testEngine   bin: { htmlkup: './bin/htmlkup' },
+silly testEngine   main: './lib/htmlkup.coffee',
+silly testEngine   directories: { test: './test' },
+silly testEngine   dependencies: { 'coffee-script': '>= 1.1.0' },
+silly testEngine   _npmJsonOpts: 
+silly testEngine    { file: 'package.json',
+silly testEngine      wscript: false,
+silly testEngine      contributors: false,
+silly testEngine      serverjs: false },
+silly testEngine   _id: 'htmlkup@1.1.4',
+silly testEngine   devDependencies: {},
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.27',
+silly testEngine   _nodeVersion: 'v0.4.11',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/Users/colinta/Source/htmlkup',
+silly testEngine   bundleDependencies: [] }
+verbose caching package.json
+verbose loadDefaults htmlkup@1.1.4
+verbose pack /Users/colinta/Source/htmlkup /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/tmp.tgz
+verbose mkdir (expected) error ENOENT, No such file or directory '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507'
+verbose mkdir (expected) error ENOENT, No such file or directory '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898'
+verbose mkdir done: /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898 755
+verbose mkdir'ed /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898
+verbose tar about to write tar and gzip it.
+silly tar args [ '-cvf',
+silly tar args   '-',
+silly tar args   'htmlkup/htmlkup.tmproj',
+silly tar args   'htmlkup/package.json',
+silly tar args   'htmlkup/README.md',
+silly tar args   'htmlkup/bin/htmlkup',
+silly tar args   'htmlkup/lib/htmlkup.coffee',
+silly tar args   'htmlkup/test/htmlkup-test.js' ]
+verbose success tar -cvf - <file list elided>
+verbose success gzip "--stdout"
+verbose mkdir (expected) error ENOENT, No such file or directory '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents'
+verbose mkdir (expected) error ENOENT, No such file or directory '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm'
+verbose mkdir done: /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm 755
+verbose unpack_ uid, gid [ undefined, undefined ]
+verbose unpackTarget /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package
+silly gunzTarPerm modes [ '755', '644' ]
+verbose success gzip "--decompress" "--stdout" "/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/tmp.tgz"
+verbose success tar "-mvxpf" "-" "-o" "-C" "/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm"
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/htmlkup.tmproj
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/package.json
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/README.md
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/bin/
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/bin/htmlkup
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/lib/
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/lib/htmlkup.coffee
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/test/
+silly asyncMap in gTP /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup/test/htmlkup-test.js
+verbose gunzed /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup
+verbose rm'ed /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package
+verbose renamed [ '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/___package.npm/htmlkup',
+verbose renamed   '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package' ]
+silly testEngine { name: 'htmlkup',
+silly testEngine   description: 'Converts html to coffeekup.  Uses state maching written in coffeescript.',
+silly testEngine   version: '1.1.4',
+silly testEngine   author: 
+silly testEngine    { name: 'Colin Thomas-Arnold',
+silly testEngine      email: 'colinta@mac.com' },
+silly testEngine   bin: { htmlkup: './bin/htmlkup' },
+silly testEngine   main: './lib/htmlkup.coffee',
+silly testEngine   directories: { test: './test' },
+silly testEngine   dependencies: { 'coffee-script': '>= 1.1.0' },
+silly testEngine   _npmJsonOpts: 
+silly testEngine    { file: '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package/package.json',
+silly testEngine      wscript: false,
+silly testEngine      contributors: false,
+silly testEngine      serverjs: false },
+silly testEngine   _id: 'htmlkup@1.1.4',
+silly testEngine   devDependencies: {},
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.27',
+silly testEngine   _nodeVersion: 'v0.4.11',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package' }
+verbose caching /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package/package.json
+verbose loadDefaults htmlkup@1.1.4
+verbose tarball contents [ 'package' ]
+verbose from cache /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package/package.json
+verbose pack /var/folders/dr/qpz58rd10tq4vx5cg233_qrr0000gn/T/npm-1316455673507/1316455673507-0.5351660528685898/contents/package /Users/colinta/.npm/htmlkup/1.1.4/package.tgz
+verbose mkdir'ed /Users/colinta/.npm/htmlkup/1.1.4
+verbose tar about to write tar and gzip it.
+silly tar args [ '-cvf',
+silly tar args   '-',
+silly tar args   'package/htmlkup.tmproj',
+silly tar args   'package/package.json',
+silly tar args   'package/README.md',
+silly tar args   'package/bin/htmlkup',
+silly tar args   'package/lib/htmlkup.coffee',
+silly tar args   'package/test/htmlkup-test.js' ]
+verbose success tar -cvf - <file list elided>
+verbose success gzip "--stdout"
+verbose mkdir (expected) error ENOENT, No such file or directory '/Users/colinta/.npm/htmlkup/1.1.4/___package.npm'
+verbose mkdir done: /Users/colinta/.npm/htmlkup/1.1.4/___package.npm 755
+verbose unpack_ uid, gid [ undefined, undefined ]
+verbose unpackTarget /Users/colinta/.npm/htmlkup/1.1.4/package
+silly gunzTarPerm modes [ '755', '644' ]
+verbose success gzip "--decompress" "--stdout" "/Users/colinta/.npm/htmlkup/1.1.4/package.tgz"
+verbose success tar "-mvxpf" "-" "-o" "-C" "/Users/colinta/.npm/htmlkup/1.1.4/___package.npm"
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/htmlkup.tmproj
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/package.json
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/README.md
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/bin/
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/bin/htmlkup
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/lib/
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/lib/htmlkup.coffee
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/test/
+silly asyncMap in gTP /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package/test/htmlkup-test.js
+verbose gunzed /Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package
+verbose rm'ed /Users/colinta/.npm/htmlkup/1.1.4/package
+verbose renamed [ '/Users/colinta/.npm/htmlkup/1.1.4/___package.npm/package',
+verbose renamed   '/Users/colinta/.npm/htmlkup/1.1.4/package' ]
+silly testEngine { name: 'htmlkup',
+silly testEngine   description: 'Converts html to coffeekup.  Uses state maching written in coffeescript.',
+silly testEngine   version: '1.1.4',
+silly testEngine   author: 
+silly testEngine    { name: 'Colin Thomas-Arnold',
+silly testEngine      email: 'colinta@mac.com' },
+silly testEngine   bin: { htmlkup: './bin/htmlkup' },
+silly testEngine   main: './lib/htmlkup.coffee',
+silly testEngine   directories: { test: './test' },
+silly testEngine   dependencies: { 'coffee-script': '>= 1.1.0' },
+silly testEngine   _npmJsonOpts: 
+silly testEngine    { file: '/Users/colinta/.npm/htmlkup/1.1.4/package/package.json',
+silly testEngine      wscript: false,
+silly testEngine      contributors: false,
+silly testEngine      serverjs: false },
+silly testEngine   _id: 'htmlkup@1.1.4',
+silly testEngine   devDependencies: {},
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.27',
+silly testEngine   _nodeVersion: 'v0.4.11',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   dist: 
+silly testEngine    { shasum: '09dd24b7dc4ece40947da78d929dba84561d0a41',
+silly testEngine      tarball: 'http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.4.tgz' } }
+verbose caching /Users/colinta/.npm/htmlkup/1.1.4/package/package.json
+verbose loadDefaults htmlkup@1.1.4
+silly updated sha bytes 3931
+info shasum 09dd24b7dc4ece40947da78d929dba84561d0a41
+info shasum /Users/colinta/.npm/htmlkup/1.1.4/package.tgz
+verbose from cache /Users/colinta/.npm/htmlkup/1.1.4/package/package.json
+verbose chmod /Users/colinta/.npm/htmlkup/1.1.4/package.tgz 644
+silly publish { name: 'htmlkup',
+silly publish   description: 'Converts html to coffeekup.  Uses state maching written in coffeescript.',
+silly publish   version: '1.1.4',
+silly publish   author: 
+silly publish    { name: 'Colin Thomas-Arnold',
+silly publish      email: 'colinta@mac.com' },
+silly publish   bin: { htmlkup: './bin/htmlkup' },
+silly publish   main: './lib/htmlkup.coffee',
+silly publish   directories: { test: './test' },
+silly publish   dependencies: { 'coffee-script': '>= 1.1.0' },
+silly publish   _npmJsonOpts: 
+silly publish    { file: '/Users/colinta/.npm/htmlkup/1.1.4/package/package.json',
+silly publish      wscript: false,
+silly publish      contributors: false,
+silly publish      serverjs: false },
+silly publish   _id: 'htmlkup@1.1.4',
+silly publish   devDependencies: {},
+silly publish   engines: { node: '*' },
+silly publish   _engineSupported: true,
+silly publish   _npmVersion: '1.0.27',
+silly publish   _nodeVersion: 'v0.4.11',
+silly publish   _defaultsLoaded: true,
+silly publish   dist: 
+silly publish    { shasum: '09dd24b7dc4ece40947da78d929dba84561d0a41',
+silly publish      tarball: 'http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.4.tgz' } }
+verbose PUT htmlkup
+verbose raw, before any munging htmlkup
+verbose url resolving [ 'https://registry.npmjs.org/', './htmlkup' ]
+verbose url resolved https://registry.npmjs.org/htmlkup
+verbose url parsed { protocol: 'https:',
+verbose url parsed   slashes: true,
+verbose url parsed   host: 'registry.npmjs.org',
+verbose url parsed   hostname: 'registry.npmjs.org',
+verbose url parsed   href: 'https://registry.npmjs.org/htmlkup',
+verbose url parsed   pathname: '/htmlkup' }
+silly writing json { _id: 'htmlkup',
+silly writing json   name: 'htmlkup',
+silly writing json   description: 'Converts html to coffeekup.  Uses state maching written in coffeescript.',
+silly writing json   'dist-tags': {},
+silly writing json   versions: {},
+silly writing json   maintainers: [ { name: 'colinta', email: 'colinta@mac.com' } ] }
+verbose response https://registry.npmjs.org/htmlkup
+silly chunk {"error":"conflict","reason":"Document update conflict."}
+silly chunk 
+verbose GET htmlkup
+verbose raw, before any munging htmlkup
+verbose url resolving [ 'https://registry.npmjs.org/', './htmlkup' ]
+verbose url resolved https://registry.npmjs.org/htmlkup
+verbose url parsed { protocol: 'https:',
+verbose url parsed   slashes: true,
+verbose url parsed   host: 'registry.npmjs.org',
+verbose url parsed   hostname: 'registry.npmjs.org',
+verbose url parsed   href: 'https://registry.npmjs.org/htmlkup',
+verbose url parsed   pathname: '/htmlkup' }
+verbose response https://registry.npmjs.org/htmlkup
+silly chunk {"_id":"htmlkup","_rev":"21-9c4e51cc8e7aeb6cd8b364854f3a7d7e","name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","dist-tags":{"latest":"1.1.4"},"versions":{"0.0.1":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"0.0.1","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"main":"./index.coffee","_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/0.0.1/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@0.0.1","dependencies":{},"devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"52670879dd8587c7107fc32bf724846c35eea2e3","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-0.0.1.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}],"directories":{}},"1.0.0":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.0.0","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"hmtlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependen
+silly chunk cies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.0.0/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.0.0","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"e275e0516dcecfd4ade4139834db5823c2392a1f","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.0.0.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.0.1":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.0.1","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.0.1/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.0.1","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"904827c49eaacac17f41a002910e77040914b138","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.0.1.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.0.2":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","
+silly chunk version":"1.0.2","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.0.2/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.0.2","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"a6aaa62c475b0842378c9b48e4c3b398078e310d","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.0.2.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.0.3":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.0.3","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.0.3/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.0.3","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"af4026eb3285ec240c313fd59b0ec2b442463bf5","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.
+silly chunk 0.3.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.1.0":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.1.0","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.1.0/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.1.0","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"8180387666de767efdfc2cce11ebb93b46539b72","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.0.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.1.1":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.1.1","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.1.1/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.1.1","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,
+silly chunk "_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"07afbe1b8ab4dc11e568b0330aad35870bf5bfec","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.1.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.1.2":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.1.2","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.1.2/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.1.2","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"88be72511896563c055efa5c5837fbaa1c7b9ea7","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.2.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.1.3":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.1.3","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colint
+silly chunk a/.npm/htmlkup/1.1.3/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.1.3","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"4d5e10447a4195b9b31181933b7290e6734be5fa","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.3.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]},"1.1.4":{"name":"htmlkup","description":"Converts html to coffeekup.  Uses state maching written in coffeescript.","version":"1.1.4","author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"},"bin":{"htmlkup":"./bin/htmlkup"},"main":"./lib/htmlkup.coffee","directories":{"test":"./test"},"dependencies":{"coffee-script":">= 1.1.0"},"_npmJsonOpts":{"file":"/Users/colinta/.npm/htmlkup/1.1.4/package/package.json","wscript":false,"contributors":false,"serverjs":false},"_id":"htmlkup@1.1.4","devDependencies":{},"engines":{"node":"*"},"_engineSupported":true,"_npmVersion":"1.0.27","_nodeVersion":"v0.4.11","_defaultsLoaded":true,"dist":{"shasum":"92347f854b010bbce3a7deefaebe0603031628bc","tarball":"http://registry.npmjs.org/htmlkup/-/htmlkup-1.1.4.tgz"},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}]}},"maintainers":[{"name":"colinta","email":"colinta@mac.com"}],"time":{"0.0.1":"2011-09-19T00:05:07.544Z","1.0.0":"2011-09-19T01:27:58.630Z","1.0.1":"2011-09-19T02:05:32.990Z","1.0.2":"2011-09-19T02:32:04.750Z","1.0.3":"2011-09-19T02:40:02.798Z","1.1.0":"2011-09-19T16:26:16.018Z","1.1.1":"2011-09-19T17:05:31.857Z","1.1.2":"2011-09-19T17:28:13.513Z","1.1.3":"2011-09-19T17:42:59.544Z","1.1.4":"2011-09-19T17:52:31.078Z"},"author":{"name":"Colin Thomas-Arnold","email":"colinta@mac.com"}}
+info Already published htmlkup@1.1.4
+verbose uploading bin dists []
+ERR! publish fail Cannot publish over existing version.
+ERR! publish fail Bump the 'version' field, set the --force flag, or
+ERR! publish fail     npm unpublish 'htmlkup@1.1.4'
+ERR! publish fail and try again
+ERR! 
+ERR! System Darwin 11.1.0
+ERR! command "node" "/usr/local/bin/npm" "publish"
+ERR! cwd /Users/colinta/Source/htmlkup
+ERR! node -v v0.4.11
+ERR! npm -v 1.0.27
+verbose exit [ 1, true ]

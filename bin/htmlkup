@@ -18,10 +18,4 @@ process.stdin.on 'data', (chunk)->
   html += chunk
 
 process.stdin.on 'end', ()->
-  try
-    process.stdout.write htmlkup(html, output_debug)
-  catch e
-    if e.html? then console.log e.html
-    if e.coffee? then console.log e.coffee
-    if e.current? then console.log e.current
-    throw e
+  process.stdout.write htmlkup(html, output_debug)

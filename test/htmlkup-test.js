@@ -11,7 +11,7 @@ var bigtest = '<html>\n' +
               '    <title>Title</title>\n' +
               '  </head>\n' +
               '  <body>\n' +
-              '    <p>An easy one.</p>' +
+              '    <p>An easy one.</p>\n' +
               '    <div class=myclass id=myid>\n' +
               '      <p>First this</p>\n' +
               '      <p>Then <strong>THIS</strong></p>\n' +
@@ -66,6 +66,12 @@ vows.describe('Converting html into coffeekup').addBatch({
       assert.equal(htmlkup(html), 'br()')
     },
   },
+  'when converting <p>1 < 2</p>': {
+    topic: '<p>1 < 2</p>',
+    'we expect p "1 < 2"': function(html) {
+      assert.equal(htmlkup(html), 'p "1 < 2"')
+    },
+  },
   'when converting <div><p> with whitespace': {
     topic: '  <div><p></p></div>',
     'we expect div -> p -> with whitespace': function(html) {
@@ -86,14 +92,20 @@ vows.describe('Converting html into coffeekup').addBatch({
   },
   'when converting <p>  test  \\n</p>': {
     topic: '<p>  test  \n</p>',
-    'we expect p "test "': function(html) {
-      assert.equal(htmlkup(html), 'p "test "')
+    'we expect p " test "': function(html) {
+      assert.equal(htmlkup(html), 'p " test "')
     },
   },
   'when converting <p>  test\\n  </p>': {
     topic: '<p>  test\n  </p>',
-    'we expect p "test "': function(html) {
-      assert.equal(htmlkup(html), 'p "test "')
+    'we expect p " test "': function(html) {
+      assert.equal(htmlkup(html), 'p " test "')
+    },
+  },
+  'when converting <p>test <a href="/">link</a> test</p>': {
+    topic: '<p>test <a href="/">link</a> test</p>',
+    'we expect p -> text "test " ... text " test"': function(html) {
+      assert.equal(htmlkup(html), 'p ->\n  text "test "\n  a href: "/", "link"\n  text " test"')
     },
   },
   'when converting <a id="myid" class="class1 class2" href="/">': {
@@ -119,5 +131,5 @@ vows.describe('Converting html into coffeekup').addBatch({
     'we expect bigkup': function(bigtest) {
       assert.equal(htmlkup(bigtest), bigkup)
     },
-  },
+  }
 }).export(module);
