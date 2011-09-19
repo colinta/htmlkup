@@ -84,6 +84,18 @@ vows.describe('Converting html into coffeekup').addBatch({
       assert.equal(htmlkup(html), '    div ->\n      p()')
     },
   },
+  'when converting <p>  test  \\n</p>': {
+    topic: '<p>  test  \n</p>',
+    'we expect p "test "': function(html) {
+      assert.equal(htmlkup(html), 'p "test "')
+    },
+  },
+  'when converting <p>  test\\n  </p>': {
+    topic: '<p>  test\n  </p>',
+    'we expect p "test "': function(html) {
+      assert.equal(htmlkup(html), 'p "test "')
+    },
+  },
   'when converting <a id="myid" class="class1 class2" href="/">': {
     topic: '<a id="myid" class="class1 class2" href="/">link</a>',
     'we expect a': function(html) {

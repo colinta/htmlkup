@@ -93,6 +93,8 @@ module.exports = (html, output_debug)->
       when 'singleton', 'close-tag'
         last_tag = parent_tags.pop()
       when 'text'
+        value_whitespace = (value.match /[ \r\n]*$/)[0]
+        value = value.trim() + (if value_whitespace then ' ' else '')
         last_tag.tags.push value
     c += value.length
     state = next
