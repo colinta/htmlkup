@@ -45,7 +45,7 @@ html ->
     div ->
       a href: "/", ->
         text "somewhere"
-      br()```
+      br()
 ```
 
 ``` sh
@@ -64,7 +64,6 @@ htmlkup = require 'htmlkup'
 html = '<p>Hi!</p>'
 coffeekup = htmlkup(html)
 ```
-
 ``` coffeescript
 p->
   text 'Hi!'
