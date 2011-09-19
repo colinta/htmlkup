@@ -58,5 +58,5 @@ p->
 ```
 $ vows
 ····· 
-&#x2713; OK &raquo; 10 honored (0.005s)
+✓ OK » 10 honored (0.005s)
 ```
