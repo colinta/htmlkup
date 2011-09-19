@@ -1,22 +1,11 @@
-#!/usr/bin/env coffee
-
-process.stdin.resume()
-process.stdin.setEncoding('utf8')
-
-html = ''
-process.stdin.on 'data', (chunk)->
-  html += chunk
-
-process.stdin.on 'end', ()->
-  convert(html)
 
 
-convert = (html)->
+module.exports = (html)->
   possibles = 
     start: ['ws', 'text', 'lt', 'end']
     ws: ['text', 'lt', 'end']
     lt: ['tag', 'close', 'ws', 'end']
-    tag: ['tag-ws', 'gt', 'close']
+    tag: ['tag-ws', 'gt', 'singleton']
     'close-tag': ['text', 'ws', 'lt', 'end']
     'tag-ws': ['attr', 'singleton']
     attr: ['tag-ws', 'eq', 'gt', 'singleton']
@@ -70,14 +59,14 @@ convert = (html)->
   c = initial_indent.length
   while state != 'end'
     current = html.substring c
-    if ! possibles[state]
-      console.error "Error: possibles[#{state}]"
-      return html
     
     nexts = (next for next in possibles[state] when current.match detect[next])
     if ! nexts.length
-      console.error "Error: expected: #{(n for n in possibles[state]).join ' '},\n       found #{(n for n,v of detect when current.match detect[v]).join ' '}"
-      return html
+      e = new Error "Expected: #{(n for n in possibles[state]).join ' '}, found #{(n for n,v of detect when current.match detect[v]).join ' '}"
+      e.coffee = coffee
+      e.html = html
+      e.current = current
+      throw e
     
     next = nexts[0]
     value = (current.match detect[next])[0]
@@ -100,11 +89,9 @@ convert = (html)->
         last_attr = null
       when 'gt'
         coffee += indent.join('') + addTag last_tag
-        coffee += "->\n"
         indent.push('  ')
       when 'singleton'
         coffee += indent.join('') + addTag last_tag, true
-        coffee += "\n"
       when 'text'
         coffee += indent.join('') + "text #{JSON.stringify value}\n"
       ##|
@@ -126,8 +113,7 @@ convert = (html)->
       # when 'ws'
     c += value.length
     state = next
-
-  console.log coffee
+  coffee.trim()
 
 addTag = (last_tag, is_singleton = false)->
   coffee = ''
@@ -149,6 +135,9 @@ addTag = (last_tag, is_singleton = false)->
     else if attr_value.match /^[0-9]+$/ then coffee += attr_value
     else coffee += JSON.stringify attr_value
     first = false
-  if coffee.length == 0 and is_singleton then coffee = last_tag.name + '()'
-  else coffee = last_tag.name + ' ' + coffee
+  if coffee.length == 0
+    if is_singleton then coffee = last_tag.name + "()\n"
+    else coffee = last_tag.name + " ->\n"
+  else
+    coffee = last_tag.name + ' ' + coffee + ", ->\n"
   coffee
