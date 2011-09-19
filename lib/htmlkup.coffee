@@ -113,7 +113,7 @@ module.exports = (html)->
       # when 'ws'
     c += value.length
     state = next
-  coffee.trim()
+  initial_indent + coffee.trim()
 
 addTag = (last_tag, is_singleton = false)->
   coffee = ''

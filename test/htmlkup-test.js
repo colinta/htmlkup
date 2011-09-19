@@ -40,6 +40,12 @@ vows.describe('Converting html into coffeekup').addBatch({
       assert.equal(htmlkup(html), "br()")
     },
   },
+  'when converting <div><p> with whitespace': {
+    topic: '  <div><p></p></div>',
+    'we expect div -> p -> with whitespace': function(html) {
+      assert.equal(htmlkup(html), "  div ->\n    p ->")
+    },
+  },
   'when converting <a id="myid" class="class1 class2" href="/">': {
     topic: '<a id="myid" class="class1 class2" href="/">link</a>',
     'we expect a': function(html) {
