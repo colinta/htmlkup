@@ -11,27 +11,35 @@ var bigtest = '<html>\n' +
               '    <title>Title</title>\n' +
               '  </head>\n' +
               '  <body>\n' +
-              '    <div>Text</div>\n' +
+              '    <p>An easy one.</p>' +
+              '    <div class=myclass id=myid>\n' +
+              '      <p>First this</p>\n' +
+              '      <p>Then <strong>THIS</strong></p>\n' +
+              '      <p>And finally, Text</p>\n' +
+              '    </div>\n' +
               '    <div>\n' +
-              '      <a href="/">somewhere</a>\n' +
-              '      <br/>\n' +
+              '      <a href="/">somewhere</a><br/>\n' +
+              '<img width=20 height=20 src="/image/myimage.png"/>\n' +
               '    </div>\n' +
               '  </body>\n' +
-              '</html>',
-
+              '</html>';
   bigkup =    'html ->\n' +
               '  head ->\n' +
               '    link type: "text/css", href: "/css/my.css"\n' +
-              '    script type: "text/javascript", src: "/js/my.js", ->\n' +
-              '    title ->\n' +
-              '      text "Title"\n' +
+              '    script type: "text/javascript", src: "/js/my.js"\n' +
+              '    title "Title"\n' +
               '  body ->\n' +
+              '    p "An easy one."\n' +
+              '    div ".myclass#myid", ->\n' +
+              '      p "First this"\n' +
+              '      p ->\n' +
+              '        text "Then "\n' +
+              '        strong "THIS"\n' +
+              '      p "And finally, Text"\n' +
               '    div ->\n' +
-              '      text "Text"\n' +
-              '    div ->\n' +
-              '      a href: "/", ->\n' +
-              '        text "somewhere"\n' +
-              '      br()';
+              '      a href: "/", "somewhere"\n' +
+              '      br()\n' +
+              '      img width: 20, height: 20, src: "/image/myimage.png"';
 
 vows.describe('Converting html into coffeekup').addBatch({
   'when converting <br />': {
@@ -43,19 +51,19 @@ vows.describe('Converting html into coffeekup').addBatch({
   'when converting <div><p> with whitespace': {
     topic: '  <div><p></p></div>',
     'we expect div -> p -> with whitespace': function(html) {
-      assert.equal(htmlkup(html), "  div ->\n    p ->")
+      assert.equal(htmlkup(html), "  div ->\n    p()")
     },
   },
   'when converting <a id="myid" class="class1 class2" href="/">': {
     topic: '<a id="myid" class="class1 class2" href="/">link</a>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'a ".class1.class2#myid", href: "/", ->\n  text "link"')
+      assert.equal(htmlkup(html), 'a ".class1.class2#myid", href: "/", "link"')
     }
     },
   'when converting <div><a id="myid" class="class1 class2" href="/"></div>': {
     topic: '<div><a id="myid" class="class1 class2" href="/">link</a></div>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'div ->\n  a ".class1.class2#myid", href: "/", ->\n    text "link"')
+      assert.equal(htmlkup(html), 'div ->\n  a ".class1.class2#myid", href: "/", "link"')
     }
   },
   'when converting bigtest': {

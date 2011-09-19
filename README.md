@@ -2,16 +2,16 @@
 ---------
 
 ``` shell
-npm install -g htmlkup
+$ npm install -g htmlkup
 ```
 
 ``` shell
-echo '<html></html>' | htmlkup
+$ echo '<html></html>' | htmlkup
 html ->
 ```
 
 ``` shell
-echo '<html>
+$ echo '<html>
   <head>
     <link type="text/css" href="/css/my.css" />
     <script type="text/javascript" src="/js/my.js"></script>
@@ -44,7 +44,20 @@ htmlkup = require 'htmlkup'
 
 html = '<p>Hi!</p>'
 coffeekup = htmlkup(html)
-# coffeekup =>
-# p->
-#   text 'Hi!'
+```
+
+`=>`
+
+``` coffeescript
+p->
+  text 'Hi!'
+```
+
+ Tests
+-------
+
+```
+$ vows
+····· 
+✓ OK » 5 honored (0.003s)
 ```

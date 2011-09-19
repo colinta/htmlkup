@@ -1,7 +1,7 @@
 
 
 module.exports = (html)->
-  possibles = 
+  possibles =
     start: ['ws', 'text', 'lt', 'end']
     ws: ['text', 'lt', 'end']
     lt: ['tag', 'close', 'ws', 'end']
@@ -21,7 +21,7 @@ module.exports = (html)->
     singleton: ['text', 'ws', 'lt', 'end']
     text: ['lt', 'ws', 'end']
     close: ['close-tag']
-  
+
   html_thing = /^[a-zA-Z]([-_]?[a-zA-Z0-9])*/
   detect =
     start: /^/
@@ -38,7 +38,7 @@ module.exports = (html)->
     sqt: /^'/
     cdqt: /^"/
     csqt: /^'/
-    value: html_thing
+    value: /^[a-zA-Z0-9]([-_]?[a-zA-Z0-9])*/
     dvalue: /^[^"\n\r]+/
     svalue: /^[^'\n\r]+/
     text: /^[^<\s][^<]*/
@@ -47,98 +47,125 @@ module.exports = (html)->
 
   state = 'start'
   c = 0
-  coffee = ''
-  last_tag = null
+  last_tag = {tags: []}
   last_attr = null
-  tags = []
-  
+  parent_tags = []
+
   html = html.replace(/[\t]/g, '  ') # YEAH, FUCK YOU, TABS!
   initial_indent = (html.match /^[ ]*/)[0]
-  indent = [initial_indent]
-  
+  indent = []
+
   c = initial_indent.length
   while state != 'end'
     current = html.substring c
-    
+
     nexts = (next for next in possibles[state] when current.match detect[next])
     if ! nexts.length
-      e = new Error "Expected: #{(n for n in possibles[state]).join ' '}, found #{(n for n,v of detect when current.match detect[v]).join ' '}"
-      e.coffee = coffee
+      e = new Error "Expected: #{(noun for noun in possibles[state]).join ' '}, found #{(noun for noun, regex of detect when current.match regex).join ' '}"
       e.html = html
       e.current = current
       throw e
-    
+
     next = nexts[0]
     value = (current.match detect[next])[0]
-    
+
     switch next
       when 'tag'
-        last_tag = { name: value, attr: {} }
-        tags.push last_tag
+        new_tag = { name: value, attrs: {}, tags: [], is_singleton: false }
+        last_tag.tags.push new_tag
+        parent_tags.push last_tag
+
+        last_tag = new_tag
         last_attr = null
-      when 'close-tag'
-        last_tag = tags.pop()
-        indent.pop()
       when 'attr'
         last_attr = value
       when 'tag-ws'
-        if last_attr then last_tag.attr[last_attr] = true
+        if last_attr then last_tag.attrs[last_attr] = true
         last_attr = null
       when 'value', 'dvalue', 'svalue'
-        last_tag.attr[last_attr] = value
+        last_tag.attrs[last_attr] = value
         last_attr = null
       when 'gt'
-        coffee += indent.join('') + addTag last_tag
         indent.push('  ')
       when 'singleton'
-        coffee += indent.join('') + addTag last_tag, true
+        last_tag = parent_tags.pop()
+      when 'close-tag'
+        last_tag = parent_tags.pop()
+        indent.pop()
       when 'text'
-        coffee += indent.join('') + "text #{JSON.stringify value}\n"
-      ##|
-      ##|  IGNORE
-      ##|
-      # when 'lt'
-      #   reset last_tag, ignore value
-      # when 'eq'
-      #   coffee += '='
-      # when 'dqt'
-      #   coffee += value
-      # when 'cdqt'
-      #   coffee += value
-      # when 'sqt'
-      #   coffee += value
-      # when 'csqt'
-      #   coffee += value
-      # when 'close'
-      # when 'ws'
+        last_tag.tags.push value
     c += value.length
     state = next
-  initial_indent + coffee.trim()
+  (render last_tag.tags, [initial_indent]).replace(/\n$/, '')
 
-addTag = (last_tag, is_singleton = false)->
-  coffee = ''
-  extra = ''
-  if last_tag.attr['class'] then  extra += '.' + last_tag.attr['class'].replace(/[ ]/g, '.')
-  if last_tag.attr.id then  extra += "\##{last_tag.attr.id}"
-  # delete so they don't get re-added
-  last_tag.attr.class = null
-  last_tag.attr.id = null
-  if extra then coffee += JSON.stringify extra
-  first = true
-  for own attr, attr_value of last_tag.attr
-    if not attr_value? then continue
-    if not first or extra.length then coffee += ', '
-    if attr.match /^[a-zA-Z0-9]+$/ then coffee += attr
-    else coffee += JSON.stringify attr
-    coffee += ': '
-    if attr_value == true then coffee += 'true'
-    else if attr_value.match /^[0-9]+$/ then coffee += attr_value
-    else coffee += JSON.stringify attr_value
-    first = false
-  if coffee.length == 0
-    if is_singleton then coffee = last_tag.name + "()\n"
-    else coffee = last_tag.name + " ->\n"
-  else
-    if is_singleton then coffee = last_tag.name + ' ' + coffee + "\n"
-    else coffee = last_tag.name + ' ' + coffee + ", ->\n"
-  coffee
+
+render = (tags, indent = [])->
+  ret = ''
+  for tag in tags
+    if typeof tag == 'string'
+      ret += "#{indent.join('')}text #{JSON.stringify tag}\n"
+    else
+      ret += "#{indent.join('')}#{tag.name}"
+      extra = ''
+      if tag.attrs.class then  extra += '.' + tag.attrs.class.replace(/[ ]/g, '.')
+      if tag.attrs.id then  extra += "\##{tag.attrs.id}"
+      attrs = []
+      if Object.keys(tag.attrs).length
+        for own ak, av of tag.attrs
+          if ak in ['class', 'id'] then continue
+          if not ak.match /^[a-zA-Z0-9]+$/ then ak = JSON.stringify ak
+          
+          if not av.match /^[0-9]+$/ then av = JSON.stringify av
+          attrs.push "#{ak}: #{av}"
+
+      added_something = false
+      if extra.length
+        ret += ' ' + JSON.stringify extra
+        added_something = true
+
+      if attrs.length
+        if added_something then ret += ', '
+        else ret += ' '
+        ret += attrs.join(', ')
+        added_something = true
+
+      if not added_something and tag.tags.length == 0
+        ret += "()\n"
+      else if tag.tags.length == 0
+        ret += "\n"
+      else if tag.tags.length == 1 and typeof tag.tags[0] == 'string'
+        if added_something then ret += ', '
+        else ret += ' '
+        ret += JSON.stringify tag.tags[0]
+        ret += "\n"
+      else
+        if added_something then ret += ', '
+        else ret += ' '
+        ret += "->\n"
+        indent.push '  '
+        ret += render tag.tags, indent if tag.tags.length
+        indent.pop()
+  ret
+
+
+debug = (tags, indent = [])->
+  for tag in tags
+    if typeof tag == 'string'
+      console.log "#{indent.join('')}text: #{tag}"
+    else
+      console.log "#{indent.join('')}{ name: #{tag.name}"
+      indent.push '  '
+      if Object.keys(tag.attrs).length
+        console.log "#{indent.join('')}attrs: {"
+        indent.push '  '
+        for own ak, av of tag.attrs
+          console.log "#{indent.join('')}#{ak}: #{av}"
+        console.log "#{indent.join('')}}"
+        indent.pop()
+      console.log "#{indent.join('')}tags:"
+      indent.push '  '
+      debug tag.tags, indent if tag.tags.length
+      console.log "#{indent.join('')}}"
+      indent.pop()
+      console.log "#{indent.join('')}}"
+      indent.pop()
