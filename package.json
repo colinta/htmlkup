@@ -1,7 +1,7 @@
 {
   "name": "htmlkup",
   "description": "Converts html to coffeekup.  Uses state maching written in coffeescript.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Colin Thomas-Arnold <colinta@mac.com> http://echonull.colinta.com/",
   "bin": { "htmlkup": "./bin/htmlkup" },
   "main": "./lib/htmlkup.coffee",
