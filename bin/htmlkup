@@ -3,9 +3,12 @@
 require 'coffee-script'
 htmlkup = require '../lib/htmlkup'
 
+output_debug = false
 if process.argv[2] == '-h'
   console.log "Usage: pipe some html into htmlkup, and it'll output some coffeekup for ya."
   return 0
+else if process.argv[2] in [ '-d' , '--debug' ]
+  output_debug = true
 
 process.stdin.resume()
 process.stdin.setEncoding('utf8')
@@ -16,7 +19,7 @@ process.stdin.on 'data', (chunk)->
 
 process.stdin.on 'end', ()->
   try
-    process.stdout.write htmlkup(html)
+    process.stdout.write htmlkup(html, output_debug)
   catch e
     if e.html? then console.log e.html
     if e.coffee? then console.log e.coffee

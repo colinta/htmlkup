@@ -42,16 +42,40 @@ var bigtest = '<html>\n' +
               '      img width: 20, height: 20, src: "/image/myimage.png"';
 
 vows.describe('Converting html into coffeekup').addBatch({
+  'when converting <html></html>': {
+    topic: '<html></html>',
+    'we expect html()': function(html) {
+      assert.equal(htmlkup(html), "html()")
+    },
+  },
+  'when converting <p>test</p>': {
+    topic: '<p>test</p>',
+    'we expect p "test"': function(html) {
+      assert.equal(htmlkup(html), 'p "test"')
+    },
+  },
   'when converting <br />': {
     topic: '<br />',
     'we expect br()': function(html) {
-      assert.equal(htmlkup(html), "br()")
+      assert.equal(htmlkup(html), 'br()')
+    },
+  },
+  'when converting <br/>': {
+    topic: '<br/>',
+    'we expect br()': function(html) {
+      assert.equal(htmlkup(html), 'br()')
     },
   },
   'when converting <div><p> with whitespace': {
     topic: '  <div><p></p></div>',
     'we expect div -> p -> with whitespace': function(html) {
-      assert.equal(htmlkup(html), "  div ->\n    p()")
+      assert.equal(htmlkup(html), '  div ->\n    p()')
+    },
+  },
+  'when converting <div><p> with tabs': {
+    topic: '\t\t<div><p></p></div>',
+    'we expect div -> p -> with spaces': function(html) {
+      assert.equal(htmlkup(html), '    div ->\n      p()')
     },
   },
   'when converting <a id="myid" class="class1 class2" href="/">': {
@@ -65,6 +89,12 @@ vows.describe('Converting html into coffeekup').addBatch({
     'we expect a': function(html) {
       assert.equal(htmlkup(html), 'div ->\n  a ".class1.class2#myid", href: "/", "link"')
     }
+  },
+  'when converting <select enabled autofocus><option value="value">label</option>': {
+    topic: '<select enabled autofocus><option value="value">label</option>',
+    'we expect select ... -> option': function(html) {
+      assert.equal(htmlkup(html), 'select enabled: "enabled", autofocus: "autofocus", ->\n  option value: "value", "label"')
+    },
   },
   'when converting bigtest': {
     topic: bigtest,

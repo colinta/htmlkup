@@ -1,6 +1,6 @@
 
 
-module.exports = (html)->
+module.exports = (html, output_debug)->
   possibles =
     start: ['ws', 'text', 'lt', 'end']
     ws: ['text', 'lt', 'end']
@@ -53,7 +53,6 @@ module.exports = (html)->
 
   html = html.replace(/[\t]/g, '  ') # YEAH, FUCK YOU, TABS!
   initial_indent = (html.match /^[ ]*/)[0]
-  indent = []
 
   c = initial_indent.length
   while state != 'end'
@@ -86,16 +85,17 @@ module.exports = (html)->
         last_tag.attrs[last_attr] = value
         last_attr = null
       when 'gt'
-        indent.push('  ')
-      when 'singleton'
+        if last_attr then last_tag.attrs[last_attr] = true
+      when 'singleton', 'close-tag'
         last_tag = parent_tags.pop()
-      when 'close-tag'
-        last_tag = parent_tags.pop()
-        indent.pop()
       when 'text'
         last_tag.tags.push value
     c += value.length
     state = next
+  
+  while parent_tags.length
+    last_tag = parent_tags.pop()
+  debug last_tag.tags if output_debug
   (render last_tag.tags, [initial_indent]).replace(/\n$/, '')
 
 
@@ -113,6 +113,10 @@ render = (tags, indent = [])->
       if Object.keys(tag.attrs).length
         for own ak, av of tag.attrs
           if ak in ['class', 'id'] then continue
+          
+          if av == true then av = ak
+          else if av == false then continue
+          
           if not ak.match /^[a-zA-Z0-9]+$/ then ak = JSON.stringify ak
           
           if not av.match /^[0-9]+$/ then av = JSON.stringify av
@@ -159,7 +163,7 @@ debug = (tags, indent = [])->
         console.log "#{indent.join('')}attrs: {"
         indent.push '  '
         for own ak, av of tag.attrs
-          console.log "#{indent.join('')}#{ak}: #{av}"
+          console.log "#{indent.join('')}#{ak}: #{JSON.stringify av}"
         console.log "#{indent.join('')}}"
         indent.pop()
       console.log "#{indent.join('')}tags:"
