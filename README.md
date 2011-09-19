@@ -30,14 +30,13 @@ html ->
     script type: "text/javascript", src: "/js/my.js", ->
     title ->
       text "Title"
-    body ->
-      div ->
-        text "Text"
-      div ->
-        a href: "/", ->
-          text "somewhere"
-        br()
-```
+  body ->
+    div ->
+      text "Text"
+    div ->
+      a href: "/", ->
+        text "somewhere"
+      br()```
 
 ``` coffeescript
 htmlkup = require 'htmlkup'
