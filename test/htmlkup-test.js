@@ -21,7 +21,7 @@ var bigtest = '<html>\n' +
 
   bigkup =    'html ->\n' +
               '  head ->\n' +
-              '    link type: "text/css", href: "/css/my.css", ->\n' +
+              '    link type: "text/css", href: "/css/my.css"\n' +
               '    script type: "text/javascript", src: "/js/my.js", ->\n' +
               '    title ->\n' +
               '      text "Title"\n' +

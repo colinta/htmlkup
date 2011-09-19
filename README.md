@@ -7,7 +7,7 @@ npm install -g htmlkup
 
 ``` shell
 echo '<html></html>' | htmlkup
-html()
+html ->
 ```
 
 ``` shell
@@ -26,10 +26,10 @@ echo '<html>
 </html>' | htmlkup
 html ->
   head ->
-    link type: "text/css", href: "/css/my.css", ->
-      script type: "text/javascript", src: "/js/my.js", ->
-      title ->
-        text "Title"
+    link type: "text/css", href: "/css/my.css"
+    script type: "text/javascript", src: "/js/my.js", ->
+    title ->
+      text "Title"
     body ->
       div ->
         text "Text"

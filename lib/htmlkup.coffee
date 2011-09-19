@@ -139,5 +139,6 @@ addTag = (last_tag, is_singleton = false)->
     if is_singleton then coffee = last_tag.name + "()\n"
     else coffee = last_tag.name + " ->\n"
   else
-    coffee = last_tag.name + ' ' + coffee + ", ->\n"
+    if is_singleton then coffee = last_tag.name + ' ' + coffee + "\n"
+    else coffee = last_tag.name + ' ' + coffee + ", ->\n"
   coffee
