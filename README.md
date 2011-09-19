@@ -2,7 +2,11 @@
 ---------
 
 ``` shell
-cat '<html></html>' | htmlkup
+npm install -g htmlkup
+```
+
+``` shell
+echo '<html></html>' | htmlkup
 html()
 ```
 
