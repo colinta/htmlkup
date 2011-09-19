@@ -1,16 +1,16 @@
  htmlkup
 ---------
 
-``` shell
+``` sh
 $ npm install -g htmlkup
 ```
 
-``` shell
+``` sh
 $ echo '<html></html>' | htmlkup
 html ->
 ```
 
-``` shell
+``` sh
 $ echo '<html>
   <head>
     <link type="text/css" href="/css/my.css" />
