@@ -6,6 +6,9 @@
   "bin": { "htmlkup": "./bin/htmlkup" },
   "main": "./lib/htmlkup.coffee",
   "directories": { "test": "./test" },
+  "devDependencies": {
+    "vows": ">= 0.5.11"
+  },
   "dependencies": {
     "coffee-script": ">= 1.1.0"
   }
