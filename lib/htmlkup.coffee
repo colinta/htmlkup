@@ -200,9 +200,13 @@ render = (tags, indent = [])->
       ret += "\n"
     else
       ret += "#{indent.join('')}#{tag.name}"
-      extra = ''
-      if tag.attrs.class then  extra += '.' + tag.attrs.class.replace(/[ ]/g, '.')
-      if tag.attrs.id then  extra += "\##{tag.attrs.id}"
+      extra = []
+
+      if tag.attrs.class
+        classes = (cls for cls in tag.attrs.class.split(" ") when cls != "")
+        extra.push('.' + classes.join("."))
+
+      if tag.attrs.id then  extra.unshift("\##{tag.attrs.id.replace(/^\s*(\S*)\s*$/, "$1")}")
       attrs = []
       if tag.attrs and Object.keys(tag.attrs).length
         for own ak, av of tag.attrs
@@ -218,7 +222,7 @@ render = (tags, indent = [])->
 
       added_something = false
       if extra.length
-        ret += ' ' + JSON.stringify extra
+        ret += ' ' + JSON.stringify extra.join("")
         added_something = true
 
       if tag.ie_condition
