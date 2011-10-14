@@ -161,11 +161,29 @@ vows.describe('Converting html into coffeekup').addBatch({
     'we expect a': function(html) {
       assert.equal(htmlkup(html), 'a "#myid.class1.class2", href: "/", "link"')
     }
-    },
+  },
   'when converting <div><a id="myid" class="class1 class2" href="/"></div>': {
     topic: '<div><a id="myid" class="class1 class2" href="/">link</a></div>',
     'we expect a': function(html) {
       assert.equal(htmlkup(html), 'div ->\n  a "#myid.class1.class2", href: "/", "link"')
+    }
+  },
+  'when <span id=" myid ">text</a>': {
+    topic: '<span id=" myid ">text</a>',
+    'we expect a': function(html) {
+      assert.equal(htmlkup(html), 'span "#myid", "text"')
+    }
+  },
+  'when <span class=" myclass ">text</a>': {
+    topic: '<span class=" myclass ">text</a>',
+    'we expect a': function(html) {
+      assert.equal(htmlkup(html), 'span ".myclass", "text"')
+    }
+  },
+  'when <span class="class1  class2">text</a>': {
+    topic: '<span class="class1  class2">text</a>',
+    'we expect a': function(html) {
+      assert.equal(htmlkup(html), 'span ".class1.class2", "text"')
     }
   },
   'when converting <select enabled autofocus><option value="value">label</option>': {
