@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var htmlkup = require('../lib/htmlkup.js')
+var htmlkup = require('../lib/htmlkup.js');
 
 var output_debug = false;
 if ( process.argv[2] == '-h' )
 {
-  console.log("Usage: pipe some html into htmlkup, and it'll output some coffeekup for ya.")
+  console.log("Usage: pipe some html into htmlkup, and it'll output some coffeekup for ya.");
   return 0;
 }
 else if ( [ '-d' , '--debug' ].indexOf(process.argv[2]) >= 0 )
