@@ -36,21 +36,28 @@ $ echo '<html>
 html ->
   head ->
     link type: "text/css", href: "/css/my.css"
-    script type: "text/javascript", src: "/js/my.js", ->
-    title ->
-      text "Title"
+    script type: "text/javascript", src: "/js/my.js"
+    title "Title"
   body ->
+    div "Text"
     div ->
-      text "Text"
-    div ->
-      a href: "/", ->
-        text "somewhere"
+      a href: "/", "somewhere"
       br()
 ```
 
 ``` sh
 $ htmlkup < your.html > your.coffee
 ```
+
+ Online usage:
+---------------
+
+You can paste in your HTML and it'll output coffeescript.
+
+<http://html2coffeekup.no.de/>
+
+Thanks to [webjay](https://github.com/webjay/html2coffeekup) for building this!
+
 
  Module usage:
 ---------------
