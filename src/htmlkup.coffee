@@ -83,7 +83,7 @@ module.exports = (html, output_debug)->
   initial_whitespace = initial_whitespace.substring(0, initial_whitespace.length - initial_indent.length)
   final_whitespace = (html.match /[ \n]*$/)[0]
   html = html.trim()
-  console.log {initial_whitespace, initial_indent, final_whitespace, html} if output_debug
+  console.error {initial_whitespace, initial_indent, final_whitespace, html} if output_debug
 
   was_ws = if initial_whitespace.length then true else false
   c = 0
@@ -99,7 +99,7 @@ module.exports = (html, output_debug)->
     next = nexts[0]
     value = (current.match detect[next])[0]
     c += value.length
-    console.log {state, next, value} if output_debug
+    console.error {state, next, value} if output_debug
 
     switch next
       when 'doctype'
@@ -108,12 +108,12 @@ module.exports = (html, output_debug)->
         new_tag = { name: value.substring(1), attrs: {}, tags: [], is_singleton: false }
         last_tag.tags.push new_tag
         parent_tags.push last_tag
-        console.log 'push: ', parent_tags.length, last_tag if output_debug
+        console.error 'push: ', parent_tags.length, last_tag if output_debug
 
         last_tag = new_tag
         last_attr = null
       when 'attr'
-        if output_debug and last_attr then console.log {last_attr}
+        if output_debug and last_attr then console.error {last_attr}
         last_attr = value
       when 'tag-ws'
         if last_attr then last_tag.attrs[last_attr] = true
@@ -125,7 +125,7 @@ module.exports = (html, output_debug)->
         if last_attr then last_tag.attrs[last_attr] = true
       when 'singleton', 'tag-close'
         last_tag = parent_tags.pop()
-        console.log 'pop: ', parent_tags.length, last_tag if output_debug
+        console.error 'pop: ', parent_tags.length, last_tag if output_debug
       when 'text'
         if last_tag.name in preserve_ws
           last_tag.tags.push value
@@ -142,14 +142,14 @@ module.exports = (html, output_debug)->
         new_tag = { name: 'ie', attrs: {}, tags: [], is_singleton: false, ie_condition: condition }
         last_tag.tags.push new_tag
         parent_tags.push last_tag
-        console.log 'push: ', parent_tags.length, last_tag if output_debug
+        console.error 'push: ', parent_tags.length, last_tag if output_debug
 
         last_tag = new_tag
         last_attr = null
 
     state = next
 
-  console.log parent_tags.length, last_tag if output_debug
+  console.error parent_tags.length, last_tag if output_debug
   while parent_tags.length
     last_tag = parent_tags.pop()
   debug last_tag.tags if output_debug
@@ -263,28 +263,28 @@ render = (tags, indent = [])->
 debug = (tags, indent = [])->
   for tag in tags
     if typeof tag == 'string'
-      console.log "#{indent.join('')}text: #{tag}"
+      console.error "#{indent.join('')}text: #{tag}"
     else if tag.doctype
       mapped = doctypes[tag.doctype.replace(/\s+/g, ' ')]
-      console.log "#{indent.join('')}doctype: #{JSON.stringify tag.doctype} => #{JSON.stringify mapped}"
+      console.error "#{indent.join('')}doctype: #{JSON.stringify tag.doctype} => #{JSON.stringify mapped}"
     else if tag.comment
-      console.log "#{indent.join('')}comment: #{JSON.stringify tag.comment}"
+      console.error "#{indent.join('')}comment: #{JSON.stringify tag.comment}"
     else
-      console.log "#{indent.join('')}{ name: #{tag.name}"
+      console.error "#{indent.join('')}{ name: #{tag.name}"
       indent.push '  '
       if Object.keys(tag.attrs).length
-        console.log "#{indent.join('')}attrs: {"
+        console.error "#{indent.join('')}attrs: {"
         indent.push '  '
         for own ak, av of tag.attrs
-          console.log "#{indent.join('')}#{ak}: #{JSON.stringify av}"
-        console.log "#{indent.join('')}}"
+          console.error "#{indent.join('')}#{ak}: #{JSON.stringify av}"
+        console.error "#{indent.join('')}}"
         indent.pop()
       if tag.ie_condition
-        console.log "#{indent.join('')}ie_condition: #{JSON.stringify tag.ie_condition}"
-      console.log "#{indent.join('')}tags:"
+        console.error "#{indent.join('')}ie_condition: #{JSON.stringify tag.ie_condition}"
+      console.error "#{indent.join('')}tags:"
       indent.push '  '
       debug tag.tags, indent if tag.tags.length
-      console.log "#{indent.join('')}}"
+      console.error "#{indent.join('')}}"
       indent.pop()
-      console.log "#{indent.join('')}}"
+      console.error "#{indent.join('')}}"
       indent.pop()
