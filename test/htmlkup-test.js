@@ -73,135 +73,135 @@ var doctypeup =   'doctype 5\n' +
                   '  a.button, input.submit, button {\n' +
                   '    padding-bottom: 0px;\n' +
                   '  }\n' +
-                  '  \n' + 
-                  '"""\n'
+                  '  \n' +
+                  '"""\n' +
                   '';
 
 vows.describe('Converting html into coffeekup').addBatch({
   'when converting <html></html>': {
     topic: '<html></html>',
     'we expect html()': function(html) {
-      assert.equal(htmlkup(html), "html()")
+      assert.equal(htmlkup(html), "html()");
     },
   },
   'when converting <p>test</p>': {
     topic: '<p>test</p>',
     'we expect p "test"': function(html) {
-      assert.equal(htmlkup(html), 'p "test"')
-    },
+      assert.equal(htmlkup(html), 'p "test"');
+    }
   },
   'when converting <br />': {
     topic: '<br />',
     'we expect br()': function(html) {
-      assert.equal(htmlkup(html), 'br()')
-    },
+      assert.equal(htmlkup(html), 'br()');
+    }
   },
   'when converting <br/>': {
     topic: '<br/>',
     'we expect br()': function(html) {
-      assert.equal(htmlkup(html), 'br()')
-    },
+      assert.equal(htmlkup(html), 'br()');
+    }
   },
   'when converting <p>1 < 2</p>': {
     topic: '<p>1 < 2</p>',
     'we expect p "1 < 2"': function(html) {
-      assert.equal(htmlkup(html), 'p "1 < 2"')
-    },
+      assert.equal(htmlkup(html), 'p "1 < 2"');
+    }
   },
   'when converting <div><p> with whitespace': {
     topic: '  <div><p></p></div>',
     'we expect div -> p -> with whitespace': function(html) {
-      assert.equal(htmlkup(html), '  div ->\n    p()')
-    },
+      assert.equal(htmlkup(html), '  div ->\n    p()');
+    }
   },
   'when converting <div><p> with whitespace before AND after': {
     topic: '\n    \n  <div><p></p></div>\n  \n    ',
     'we expect div -> p -> with whitespace': function(html) {
-      assert.equal(htmlkup(html), '\n    \n  div ->\n    p()\n  \n    ')
-    },
+      assert.equal(htmlkup(html), '\n    \n  div ->\n    p()\n  \n    ');
+    }
   },
   'when converting <div><p> with tabs': {
     topic: '\t\t<div><p></p></div>',
     'we expect div -> p -> with spaces': function(html) {
-      assert.equal(htmlkup(html), '    div ->\n      p()')
-    },
+      assert.equal(htmlkup(html), '    div ->\n      p()');
+    }
   },
   'when converting <p>  test  \\n</p>': {
     topic: '<p>  test  \n</p>',
     'we expect p " test "': function(html) {
-      assert.equal(htmlkup(html), 'p " test "')
-    },
+      assert.equal(htmlkup(html), 'p " test "');
+    }
   },
   'when converting <p>  test\\n  </p>': {
     topic: '<p>  test\n  </p>',
     'we expect p " test "': function(html) {
-      assert.equal(htmlkup(html), 'p " test "')
-    },
+      assert.equal(htmlkup(html), 'p " test "');
+    }
   },
   'when converting <textarea>//<![CDATA[  //]]></textarea>': {
     topic: '<textarea>//<![CDATA[ \n\n //]]></textarea>',
     'we expect textarea "//<![CDATA[ \n\n //]]>"': function(html) {
-      assert.equal(htmlkup(html), 'textarea """\n//<![CDATA[ \n\n //]]>\n"""')
-    },
+      assert.equal(htmlkup(html), 'textarea """\n//<![CDATA[ \n\n //]]>\n"""');
+    }
   },
   'when converting <script>\\n\\n  // with whitespace\\n\\n</script>': {
     topic: '<script>\n\n  // with whitespace\n\n</script>',
     'we expect script """\\n\\n  // with whitespace\\n\\n"""': function(html) {
-      assert.equal(htmlkup(html), 'script """\n\n  // with whitespace\n\n"""')
-    },
+      assert.equal(htmlkup(html), 'script """\n\n  // with whitespace\n\n"""');
+    }
   },
   'when converting <p>test <a href="/">link</a> test</p>': {
     topic: '<p>test <a href="/">link</a> test</p>',
     'we expect p -> text "test " ... text " test"': function(html) {
-      assert.equal(htmlkup(html), 'p ->\n  text "test "\n  a href: "/", "link"\n  text " test"')
-    },
+      assert.equal(htmlkup(html), 'p ->\n  text "test "\n  a href: "/", "link"\n  text " test"');
+    }
   },
   'when converting <a id="myid" class="class1 class2" href="/">': {
     topic: '<a id="myid" class="class1 class2" href="/">link</a>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'a "#myid.class1.class2", href: "/", "link"')
+      assert.equal(htmlkup(html), 'a "#myid.class1.class2", href: "/", "link"');
     }
   },
   'when converting <div><a id="myid" class="class1 class2" href="/"></div>': {
     topic: '<div><a id="myid" class="class1 class2" href="/">link</a></div>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'div ->\n  a "#myid.class1.class2", href: "/", "link"')
+      assert.equal(htmlkup(html), 'div ->\n  a "#myid.class1.class2", href: "/", "link"');
     }
   },
   'when <span id=" myid ">text</a>': {
     topic: '<span id=" myid ">text</a>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'span "#myid", "text"')
+      assert.equal(htmlkup(html), 'span "#myid", "text"');
     }
   },
   'when <span class=" myclass ">text</a>': {
     topic: '<span class=" myclass ">text</a>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'span ".myclass", "text"')
+      assert.equal(htmlkup(html), 'span ".myclass", "text"');
     }
   },
   'when <span class="class1  class2">text</a>': {
     topic: '<span class="class1  class2">text</a>',
     'we expect a': function(html) {
-      assert.equal(htmlkup(html), 'span ".class1.class2", "text"')
+      assert.equal(htmlkup(html), 'span ".class1.class2", "text"');
     }
   },
   'when converting <select enabled autofocus><option value="value">label</option>': {
     topic: '<select enabled autofocus><option value="value">label</option>',
     'we expect select ... -> option': function(html) {
-      assert.equal(htmlkup(html), 'select enabled: "enabled", autofocus: "autofocus", ->\n  option value: "value", "label"')
-    },
+      assert.equal(htmlkup(html), 'select enabled: "enabled", autofocus: "autofocus", ->\n  option value: "value", "label"');
+    }
   },
   'when converting bigtest': {
     topic: bigtest,
     'we expect bigkup': function(bigtest) {
-      assert.equal(htmlkup(bigtest), bigkup)
-    },
+      assert.equal(htmlkup(bigtest), bigkup);
+    }
   },
   'when converting doctypetest': {
     topic: doctypetest,
     'we expect doctypeup': function(doctypetest) {
-      assert.equal(htmlkup(doctypetest), doctypeup)
-    },
+      assert.equal(htmlkup(doctypetest), doctypeup);
+    }
   }
 }).export(module);
