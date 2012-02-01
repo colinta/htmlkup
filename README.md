@@ -1,14 +1,17 @@
  htmlkup
 =========
 
- Command line usage:
----------------------
-
-Pipe it in, it pipes it out.
+Installation
+------------
 
 ``` sh
 $ npm install -g htmlkup
 ```
+
+ Command line usage:
+---------------------
+
+Pipe it in, it pipes it out.
 
 ``` sh
 $ echo '<html></html>' | htmlkup
