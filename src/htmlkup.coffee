@@ -30,7 +30,7 @@ module.exports = (html, output_debug)->
 
     'tag-open': ['attr-reset']
     'tag-close': ['reset']
-    'tag-ws': ['attr', 'singleton']
+    'tag-ws': ['attr', 'singleton', 'tag-gt']
     'tag-gt': ['cdata', 'reset']
     'singleton': ['reset']
 
@@ -68,7 +68,7 @@ module.exports = (html, output_debug)->
 
     'tag-open'      : /^<[a-zA-Z]([-_]?[a-zA-Z0-9])*/
     'tag-close'     : /^<\/[a-zA-Z]([-_]?[a-zA-Z0-9])*>/
-    'tag-ws'        : /^[ ]/
+    'tag-ws'        : /^[ \t\n]+/
     'tag-gt'        : /^>/
     'singleton'     : /^\/>/
 
@@ -78,8 +78,8 @@ module.exports = (html, output_debug)->
     'attr-dqt'      : /^"/
     'attr-sqt'      : /^'/
     'attr-value'    : /^[a-zA-Z0-9]([-_]?[a-zA-Z0-9])*/
-    'attr-dvalue'   : /^[^"\n]*/
-    'attr-svalue'   : /^[^'\n]*/
+    'attr-dvalue'   : /^[^"]*/
+    'attr-svalue'   : /^[^']*/
     'attr-cdqt'     : /^"/
     'attr-csqt'     : /^'/
 
@@ -122,7 +122,7 @@ module.exports = (html, output_debug)->
       throw new Error "Missing possibles for #{state}"
     nexts = (next for next in possibles[state] when current.match detect[next])
     if ! nexts.length
-      throw new Error "At: #{state} (#{JSON.stringify(if current.length > 10 then current.substring(0, 10) + '...' else current)}), expected: #{(noun for noun in possibles[state]).join ' '}, found #{(noun for noun, regex of detect when current.match regex).join ' '}"
+      throw new Error "At: #{state} (#{JSON.stringify(if current.length > 10 then current.substring(0, 10) + '...' else current)} @#{c}), expected: #{(noun for noun in possibles[state]).join ' '}, found #{(noun for noun, regex of detect when current.match regex).join ' '}"
 
     next = nexts[0]
     value = (current.match detect[next])[0]
@@ -155,7 +155,7 @@ module.exports = (html, output_debug)->
         if last_tag.is_singleton
           last_tag = parent_tags.pop()
         console.error 'closing: ', last_tag if output_debug
-      when 'singleton', 'tag-close'
+      when 'singleton', 'tag-close', 'ie-close'
         last_tag = parent_tags.pop()
         console.error 'pop: ', parent_tags.length, last_tag if output_debug
       when 'text'
@@ -214,14 +214,14 @@ render = (tags, indent = [])->
         else
           ret += "#{indent.join('')}text #{JSON.stringify tag}"
         ret += "\n"
-    else if tag.doctype
+    else if tag.doctype?
       mapped = doctypes[tag.doctype.replace(/\s+/g, ' ')]
       if mapped == '5'
         ret += "doctype 5"
       else
         ret += "doctype #{JSON.stringify (if mapped? then mapped else tag.doctype)}"
       ret += "\n"
-    else if tag.comment
+    else if tag.comment?
       ret += "#{indent.join('')}comment "
       str = tag.comment.trim()
       if str.match(/\n/)
