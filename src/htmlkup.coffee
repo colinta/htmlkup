@@ -6,8 +6,24 @@ module.exports = (html, output_debug)->
     'script'
     ]
 
+  SINGLETONS = [
+    'area'
+    'base'
+    'br'
+    'col'
+    'command'
+    'embed'
+    'hr'
+    'img'
+    'input'
+    'link'
+    'meta'
+    'param'
+    'source'
+    ]
+
   possibles =
-    start: ['tag-open', 'doctype', 'text', 'end']
+    start: ['tag-open', 'doctype', 'predoctype-whitespace', 'predoctype-comment-open', 'text', 'end']
     doctype: ['reset']
     reset: ['tag-open', 'ie-open', 'ie-close', 'comment-open', 'tag-close', 'text', 'end']
     end: []
@@ -34,41 +50,53 @@ module.exports = (html, output_debug)->
 
     'ie-open': ['reset']
     'ie-close': ['reset']
+
+    'predoctype-whitespace': ['start']
+    'predoctype-comment-open': ['predoctype-comment']
+    'predoctype-comment': ['predoctype-comment-close']
+    'predoctype-comment-close': ['start']
+
     'comment-open': ['comment']
     'comment': ['comment-close']
     'comment-close': ['reset']
 
   detect =
-    start: /^/
-    reset: /^/
-    doctype: /^<!doctype .*?>/i
-    end: /^$/
+    'start'         : /^/
+    'reset'         : /^/
+    'doctype'       : /^<!doctype .*?>/i
+    'end'           : /^$/
 
-    'tag-open': /^<[a-zA-Z]([-_]?[a-zA-Z0-9])*/
-    'tag-close': /^<\/[a-zA-Z]([-_]?[a-zA-Z0-9])*>/
-    'tag-ws': /^[ ]/
-    'tag-gt': /^>/
-    'singleton': /^\/>/
+    'tag-open'      : /^<[a-zA-Z]([-_]?[a-zA-Z0-9])*/
+    'tag-close'     : /^<\/[a-zA-Z]([-_]?[a-zA-Z0-9])*>/
+    'tag-ws'        : /^[ ]/
+    'tag-gt'        : /^>/
+    'singleton'     : /^\/>/
 
-    'attr-reset': /^/
-    attr: /^[a-zA-Z]([-_]?[a-zA-Z0-9])*/
-    'attr-eq': /^=/
-    'attr-dqt': /^"/
-    'attr-sqt': /^'/
-    'attr-value': /^[a-zA-Z0-9]([-_]?[a-zA-Z0-9])*/
-    'attr-dvalue': /^[^"\n]*/
-    'attr-svalue': /^[^'\n]*/
-    'attr-cdqt': /^"/
-    'attr-csqt': /^'/
+    'attr-reset'    : /^/
+    'attr'          : /^[a-zA-Z]([-_]?[a-zA-Z0-9])*/
+    'attr-eq'       : /^=/
+    'attr-dqt'      : /^"/
+    'attr-sqt'      : /^'/
+    'attr-value'    : /^[a-zA-Z0-9]([-_]?[a-zA-Z0-9])*/
+    'attr-dvalue'   : /^[^"\n]*/
+    'attr-svalue'   : /^[^'\n]*/
+    'attr-cdqt'     : /^"/
+    'attr-csqt'     : /^'/
 
-    cdata: /^(\/\/)?<!\[CDATA\[([^>]|>)*?\/\/]]>/
-    text: /^(.|\n)+?($|(?=<[!/a-zA-Z]))/
+    'cdata'         : /^(\/\/)?<!\[CDATA\[([^>]|>)*?\/\/]]>/
+    'text'          : /^(.|\n)+?($|(?=<[!/a-zA-Z]))/
 
-    'ie-open': /^<!(?:--)?\[if.*?\]>/
-    'ie-close': /^<!\[endif\](?:--)?>/
-    'comment-open': /^<!--/
-    'comment': /^(.|\n)*?(?=-->)/
-    'comment-close': /^-->/
+    'ie-open'       : /^<!(?:--)?\[if.*?\]>/
+    'ie-close'      : /^<!\[endif\](?:--)?>/
+
+    'predoctype-whitespace'  : /^[ \t\n]+/
+    'predoctype-comment-open'  : /^<!--/
+    'predoctype-comment'       : /^(.|\n)*?(?=-->)/
+    'predoctype-comment-close' : /^-->/
+
+    'comment-open'  : /^<!--/
+    'comment'       : /^(.|\n)*?(?=-->)/
+    'comment-close' : /^-->/
 
   state = 'start'
   last_tag = {name: '', tags: []}
@@ -105,7 +133,8 @@ module.exports = (html, output_debug)->
       when 'doctype'
         last_tag.tags.push { doctype: value.match(/^<!doctype (.*?)>$/i)[1].toLowerCase() }
       when 'tag-open'
-        new_tag = { name: value.substring(1), attrs: {}, tags: [], is_singleton: false }
+        new_tag = { name: value.substring(1), attrs: {}, tags: [] }
+        new_tag.is_singleton = new_tag.name in SINGLETONS
         last_tag.tags.push new_tag
         parent_tags.push last_tag
         console.error 'push: ', parent_tags.length, last_tag if output_debug
@@ -123,6 +152,9 @@ module.exports = (html, output_debug)->
         last_attr = null
       when 'tag-gt'
         if last_attr then last_tag.attrs[last_attr] = true
+        if last_tag.is_singleton
+          last_tag = parent_tags.pop()
+        console.error 'closing: ', last_tag if output_debug
       when 'singleton', 'tag-close'
         last_tag = parent_tags.pop()
         console.error 'pop: ', parent_tags.length, last_tag if output_debug
@@ -135,7 +167,7 @@ module.exports = (html, output_debug)->
           last_tag.tags.push (if pre_whitespace then ' ' else '') + value.trim() + (if post_whitespace then ' ' else '')
       when 'cdata'
         last_tag.tags.push value
-      when 'comment'
+      when 'comment', 'predoctype-comment'
         last_tag.tags.push {comment: value}
       when 'ie-open'
         condition = value.match(/^<!(?:--)?\[if(.*?)\]>/)[1].trim()

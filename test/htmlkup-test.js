@@ -23,23 +23,65 @@ var bigtest = '<html>\n' +
               '    </div>\n' +
               '  </body>\n' +
               '</html>';
-  bigkup =    'html ->\n' +
-              '  head ->\n' +
-              '    link type: "text/css", href: "/css/my.css"\n' +
-              '    script type: "text/javascript", src: "/js/my.js"\n' +
-              '    title "Title"\n' +
-              '  body ->\n' +
-              '    p "An easy one."\n' +
-              '    div "#myid.myclass", ->\n' +
-              '      p "First this"\n' +
-              '      p ->\n' +
-              '        text "Then "\n' +
-              '        strong "THIS"\n' +
-              '      p "And finally, Text"\n' +
-              '    div ->\n' +
-              '      a href: "/", "somewhere"\n' +
-              '      br()\n' +
-              '      img width: 20, height: 20, src: "/image/myimage.png"';
+  bigkup = 'html ->\n' +
+           '  head ->\n' +
+           '    link type: "text/css", href: "/css/my.css"\n' +
+           '    script type: "text/javascript", src: "/js/my.js"\n' +
+           '    title "Title"\n' +
+           '  body ->\n' +
+           '    p "An easy one."\n' +
+           '    div "#myid.myclass", ->\n' +
+           '      p "First this"\n' +
+           '      p ->\n' +
+           '        text "Then "\n' +
+           '        strong "THIS"\n' +
+           '      p "And finally, Text"\n' +
+           '    div ->\n' +
+           '      a href: "/", "somewhere"\n' +
+           '      br()\n' +
+           '      img width: 20, height: 20, src: "/image/myimage.png"';
+
+var selfclosetest = '<html>\n' +
+                    '  <head>\n' +
+                    '    <link type="text/css" href="/css/my.css">\n' +
+                    '    <meta name="keywords" content="">\n' +
+                    '    <script type="text/javascript" src="/js/my.js"></script>\n' +
+                    '    <title>Title</title>\n' +
+                    '  </head>\n' +
+                    '  <body>\n' +
+                    '    <p>An easy one.<br>And another</p>\n' +
+                    '    <div class=myclass id=myid>\n' +
+                    '      <p>First this</p>\n' +
+                    '      <p>Then <strong>THIS</strong></p>\n' +
+                    '      <p>And finally, Text</p>\n' +
+                    '    </div>\n' +
+                    '    <div>\n' +
+                    '      <a href="/">somewhere</a><br/>\n' +
+                    '<img width=20 height=20 src="/image/myimage.png"/>\n' +
+                    '    </div>\n' +
+                    '  </body>\n' +
+                    '</html>';
+  selfclosekup = 'html ->\n' +
+                 '  head ->\n' +
+                 '    link type: "text/css", href: "/css/my.css"\n' +
+                 '    meta name: "keywords", content: ""\n' +
+                 '    script type: "text/javascript", src: "/js/my.js"\n' +
+                 '    title "Title"\n' +
+                 '  body ->\n' +
+                 '    p ->\n'+
+                 '      text "An easy one."\n' +
+                 '      br()\n'+
+                 '      text "And another"\n'+
+                 '    div "#myid.myclass", ->\n' +
+                 '      p "First this"\n' +
+                 '      p ->\n' +
+                 '        text "Then "\n' +
+                 '        strong "THIS"\n' +
+                 '      p "And finally, Text"\n' +
+                 '    div ->\n' +
+                 '      a href: "/", "somewhere"\n' +
+                 '      br()\n' +
+                 '      img width: 20, height: 20, src: "/image/myimage.png"';
 
 var doctypetest = '<!doctype html>\n' +
                   '<head>\n' +
@@ -59,30 +101,56 @@ var doctypetest = '<!doctype html>\n' +
                   '<![endif]-->\n' +
                   '</head>\n' +
                   '';
-var doctypeup =   'doctype 5\n' +
-                  'head ->\n' +
-                  '  comment "comment test"\n' +
-                  '  ie "lte IE 7", ->\n' +
-                  '    style type: "text/css", """\n' +
-                  '  select, table tr.apply th select {\n' +
-                  '    font-size: 150%;\n' +
-                  '  }\n' +
-                  '  table tr.apply th input.checkbox {\n' +
-                  '    top: 3px\n' +
-                  '  }\n' +
-                  '  a.button, input.submit, button {\n' +
-                  '    padding-bottom: 0px;\n' +
-                  '  }\n' +
-                  '  \n' +
-                  '"""\n' +
-                  '';
+var doctype = 'doctype 5\n' +
+              'head ->\n' +
+              '  comment "comment test"\n' +
+              '  ie "lte IE 7", ->\n' +
+              '    style type: "text/css", """\n' +
+              '  select, table tr.apply th select {\n' +
+              '    font-size: 150%;\n' +
+              '  }\n' +
+              '  table tr.apply th input.checkbox {\n' +
+              '    top: 3px\n' +
+              '  }\n' +
+              '  a.button, input.submit, button {\n' +
+              '    padding-bottom: 0px;\n' +
+              '  }\n' +
+              '  \n' +
+              '"""\n' +
+              '';
+
+var initialwhitespacetest = '\n\n' +
+                         '<!doctype html>\n' +
+                         '<head>\n' +
+                         '  <title>title</title>\n' +
+                         '</head>\n' +
+                         '';
+
+var initialwhitespace = '\n\n' + // whitespace before and after is *preserved*
+                        'doctype 5\n' +
+                        'head ->\n' +
+                        '  title "title"\n' +
+                        '';
+
+var initialcommenttest = '<!-- comment -->\n' +
+                         '<!doctype html>\n' +
+                         '<head>\n' +
+                         '  <title>title</title>\n' +
+                         '</head>\n' +
+                         '';
+
+var initialcomment = 'comment "comment"\n' +
+                     'doctype 5\n' +
+                     'head ->\n' +
+                     '  title "title"\n' +
+                     '';
 
 vows.describe('Converting html into coffeekup').addBatch({
   'when converting <html></html>': {
     topic: '<html></html>',
     'we expect html()': function(html) {
       assert.equal(htmlkup(html), "html()");
-    },
+    }
   },
   'when converting <p>test</p>': {
     topic: '<p>test</p>',
@@ -198,10 +266,28 @@ vows.describe('Converting html into coffeekup').addBatch({
       assert.equal(htmlkup(bigtest), bigkup);
     }
   },
+  'when converting selfclosetest': {
+    topic: selfclosetest,
+    'we expect selfclosekup': function(selfclosetest) {
+      assert.equal(htmlkup(selfclosetest), selfclosekup);
+    }
+  },
   'when converting doctypetest': {
     topic: doctypetest,
-    'we expect doctypeup': function(doctypetest) {
-      assert.equal(htmlkup(doctypetest), doctypeup);
+    'we expect doctype': function(doctypetest) {
+      assert.equal(htmlkup(doctypetest), doctype);
+    }
+  },
+  'when converting initialcommenttest': {
+    topic: initialcommenttest,
+    'we expect initialcommentup': function(initialcommenttest) {
+      assert.equal(htmlkup(initialcommenttest), initialcomment);
+    }
+  },
+  'when converting initialwhitespacetest': {
+    topic: initialwhitespacetest,
+    'we expect initialwhitespaceup': function(initialwhitespacetest) {
+      assert.equal(htmlkup(initialwhitespacetest), initialwhitespace);
     }
   }
 }).export(module);
