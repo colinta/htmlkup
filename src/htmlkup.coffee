@@ -152,11 +152,12 @@ module.exports = (html, output_debug)->
         last_attr = null
       when 'tag-gt'
         if last_attr then last_tag.attrs[last_attr] = true
-        if last_tag.is_singleton
+        if last_tag.is_singleton and parent_tags.length
           last_tag = parent_tags.pop()
         console.error 'closing: ', last_tag if output_debug
       when 'singleton', 'tag-close', 'ie-close'
-        last_tag = parent_tags.pop()
+        if parent_tags.length
+          last_tag = parent_tags.pop()
         console.error 'pop: ', parent_tags.length, last_tag if output_debug
       when 'text'
         if last_tag.name in preserve_ws

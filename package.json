@@ -1,7 +1,7 @@
 {
   "name": "htmlkup",
   "description": "Converts html to coffeekup.  Well tested state machine written in coffeescript.",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "author": "Colin Thomas-Arnold <colinta@gmail.com> http://colinta.com/",
   "bin": { "htmlkup": "./bin/htmlkup" },
   "main": "./lib/htmlkup.js",
