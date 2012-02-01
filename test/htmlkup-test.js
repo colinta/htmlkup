@@ -106,17 +106,17 @@ var doctype = 'doctype 5\n' +
               '  comment "comment test"\n' +
               '  ie "lte IE 7", ->\n' +
               '    style type: "text/css", """\n' +
-              '  select, table tr.apply th select {\n' +
-              '    font-size: 150%;\n' +
-              '  }\n' +
-              '  table tr.apply th input.checkbox {\n' +
-              '    top: 3px\n' +
-              '  }\n' +
-              '  a.button, input.submit, button {\n' +
-              '    padding-bottom: 0px;\n' +
-              '  }\n' +
-              '  \n' +
-              '"""\n' +
+              '        select, table tr.apply th select {\n' +
+              '          font-size: 150%;\n' +
+              '        }\n' +
+              '        table tr.apply th input.checkbox {\n' +
+              '          top: 3px\n' +
+              '        }\n' +
+              '        a.button, input.submit, button {\n' +
+              '          padding-bottom: 0px;\n' +
+              '        }\n' +
+              '        \n' +
+              '      """\n' +
               '';
 
 var initialwhitespacetest = '\n\n' +
@@ -144,6 +144,22 @@ var initialcomment = 'comment "comment"\n' +
                      'head ->\n' +
                      '  title "title"\n' +
                      '';
+
+var longcommenttest = '<p>text<!-- and\n' +
+                      'then\n' +
+                      'a long\n' +
+                      'comment --></p>\n' +
+                      '';
+
+var longcomment = 'p ->\n' +
+                  '  text "text"\n' +
+                  '  comment """\n' +
+                  '    and\n' +
+                  '    then\n' +
+                  '    a long\n' +
+                  '    comment\n' +
+                  '    """\n' +
+                  '';
 
 vows.describe('Converting html into coffeekup').addBatch({
   'when converting <html></html>': {
@@ -209,13 +225,13 @@ vows.describe('Converting html into coffeekup').addBatch({
   'when converting <textarea>//<![CDATA[  //]]></textarea>': {
     topic: '<textarea>//<![CDATA[ \n\n //]]></textarea>',
     'we expect textarea "//<![CDATA[ \n\n //]]>"': function(html) {
-      assert.equal(htmlkup(html), 'textarea """\n//<![CDATA[ \n\n //]]>\n"""');
+      assert.equal(htmlkup(html), 'textarea """\n  //<![CDATA[ \n  \n   //]]>\n  """');
     }
   },
   'when converting <script>\\n\\n  // with whitespace\\n\\n</script>': {
     topic: '<script>\n\n  // with whitespace\n\n</script>',
     'we expect script """\\n\\n  // with whitespace\\n\\n"""': function(html) {
-      assert.equal(htmlkup(html), 'script """\n\n  // with whitespace\n\n"""');
+      assert.equal(htmlkup(html), 'script """\n  \n    // with whitespace\n  \n  """');
     }
   },
   'when converting <p>test <a href="/">link</a> test</p>': {
@@ -288,6 +304,12 @@ vows.describe('Converting html into coffeekup').addBatch({
     topic: initialwhitespacetest,
     'we expect initialwhitespaceup': function(initialwhitespacetest) {
       assert.equal(htmlkup(initialwhitespacetest), initialwhitespace);
+    }
+  },
+  'when converting longcommenttest': {
+    topic: longcommenttest,
+    'we expect longcommentup': function(longcommenttest) {
+      assert.equal(htmlkup(longcommenttest), longcomment);
     }
   }
 }).export(module);

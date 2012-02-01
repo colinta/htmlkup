@@ -225,8 +225,10 @@ render = (tags, indent = [])->
       ret += "#{indent.join('')}comment "
       str = tag.comment.trim()
       if str.match(/\n/)
-        str = str.replace(/"""/g, '"\\""').replace(/^\n|\n$/g, '')
-        ret += "#{indent.join('')}text \"\"\"\n#{str}\n\"\"\""
+        indent.push '  '
+        str = str.replace(/"""/g, '"\\""').replace(/^\n|\n$/g, '').replace(/\n/g, "\n#{indent.join('')}")
+        ret += "\"\"\"\n#{indent.join('')}#{str}\n#{indent.join('')}\"\"\""
+        indent.pop()
       else
         ret += JSON.stringify str
       ret += "\n"
@@ -277,9 +279,11 @@ render = (tags, indent = [])->
         if str.trim().length > 0
           if added_something then ret += ', '
           else ret += ' '
-          if str.match(/[\n]/)
-            str = str.replace(/"""/g, '"\\""').replace(/^\n|\n$/g, '')
-            ret += "\"\"\"\n#{str}\n\"\"\""
+          if str.match(/\n/)
+            indent.push '  '
+            str = str.replace(/"""/g, '"\\""').replace(/^\n|\n$/g, '').replace(/\n/g, "\n#{indent.join('')}")
+            ret += "\"\"\"\n#{indent.join('')}#{str}\n#{indent.join('')}\"\"\""
+            indent.pop()
           else
             ret += JSON.stringify str
           ret += "\n"
