@@ -52,16 +52,6 @@ html ->
 $ htmlkup < your.html > your.coffee
 ```
 
- Online usage:
----------------
-
-You can paste in your HTML and it'll output coffeescript.
-
-<http://html2coffeekup.no.de/>
-
-Thanks to [webjay](https://github.com/webjay/html2coffeekup) for building this!
-
-
  Module usage:
 ---------------
 
@@ -77,6 +67,25 @@ coffeekup = htmlkup(html)
 ``` coffeescript
 p "Hi!"
 ```
+
+ Online usage:
+---------------
+
+### [html2coffeekup](https://github.com/webjay/html2coffeekup) by [Jacob Friis Saxberg](https://github.com/webjay)
+
+You can paste in your HTML and it'll output coffeescript.
+
+<http://html2coffeekup.no.de/>
+
+### [haml-html-coffeecup-javascript-coffeescript-converter][hhcjcc] by [Mike Smullin](mikesmullin)
+
+Converts HAML into HTML, HTML into coffescript (coffeekup), and bi-directional
+conversion of coffeescript and javascript.
+
+<http://mikesmullin.github.com/haml-html-coffeecup-javascript-coffeescript-converter/>
+
+[hhcjcc]: https://github.com/mikesmullin/haml-html-coffeecup-javascript-coffeescript-converter
+[mikesmullin]: https://github.com/mikesmullin
 
  Tests
 -------
