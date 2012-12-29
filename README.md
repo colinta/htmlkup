@@ -75,7 +75,7 @@ p "Hi!"
 
 You can paste in your HTML and it'll output coffeescript.
 
-<http://html2coffeekup.no.de/>
+<http://html2coffeekup.herokuapp.com/>
 
 ### [haml-html-coffeecup-javascript-coffeescript-converter][hhcjcc] by [Mike Smullin](mikesmullin)
 
